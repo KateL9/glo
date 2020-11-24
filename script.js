@@ -24,7 +24,7 @@ money = prompt('What is your month income?', '');
 addExpenses = prompt('Enter your possible expenses for the calculated period, separated by comma', '');
 console.log(addExpenses);
 //Спросить у пользователя “Есть ли у вас депозит в банке?” и сохранить данные в переменной deposit (булево значение true/false)
-deposit = confirm('Do you have any credits?', false);
+deposit = confirm('Do you have any deposits?', false);
 /* Спросить у пользователя по 2 раза каждый вопрос и записать ответы в разные переменные 
 1.“Введите обязательную статью расходов?” (например expenses1, expenses2)
 2.“Во сколько это обойдется?” (например amount1, amount2)
