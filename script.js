@@ -51,7 +51,7 @@ const getAccumulatedMonth = function() {
     return result;
 };
 
-//результат вызова функции getAccumulatedMonth 
+//результат вызова функции getAccumulatedMonth (сумма всех обязательных расходов за месяц)
 const accumulatedMonth = getAccumulatedMonth();
 
 //Подсчитывает за какой период будет достигнута цель
@@ -83,15 +83,20 @@ const showTypeOf = function(money, income, deposit) {
     console.log('money - ' + typeof(money) + ', ' + 'income - ' + typeof(income) + ', ' + 'deposit - ' + typeof(deposit));
 }
 
-//вызовы функции showTypeOf
-console.log(showTypeOf(money, income, deposit));
-//Расходы за месяц вызов getExpensesMonth
-//console.log('Расходы за месяц', getExpensesMonth(amount1, amount2));
-//Вывод возможных расходов в виде массива (addExpenses)
-console.log(addExpenses.toLocaleLowerCase().split());
-//Cрок достижения цели в месяцах (результат вызова функции getTargetMonth) 
-console.log(getTargetMonth(mission, accumulatedMonth));
-//Бюджет на день (budgetDay)
-console.log(`budgetDay ${budgetDay}`);
-//вызов функции getStatusIncome
-console.log(getStatusIncome(budgetDay));
+function outputs() {
+    //вызовы функции showTypeOf
+    console.log(showTypeOf(money, income, deposit));
+    //Расходы за месяц вызов getExpensesMonth
+    //console.log('Расходы за месяц', getExpensesMonth(amount1, amount2));
+    //Вывод возможных расходов в виде массива (addExpenses)
+    console.log(addExpenses.toLocaleLowerCase().split());
+    //Cрок достижения цели в месяцах (результат вызова функции getTargetMonth) 
+    console.log(getTargetMonth(mission, accumulatedMonth));
+    if (budgetDay > 0) {
+        //Бюджет на день (budgetDay)
+        console.log(`budgetDay ${budgetDay}`);
+        //вызов функции getStatusIncome
+        console.log(getStatusIncome(budgetDay));
+    }
+};
+outputs();
