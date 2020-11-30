@@ -71,7 +71,7 @@ let appData = {
         }
 
         let addExpenses = prompt('Enter your possible expenses for the calculated period, separated by comma', '');
-        appData.addExpenses = addExpenses.toLocaleLowerCase().split(',');
+        appData.addExpenses = addExpenses.toLocaleLowerCase().split(', ');
         appData.deposit = confirm('Do you have any deposits?', false);
         for (let i = 0; i < 2; i++) {
             let itemExpenses = prompt('Enter required expense (string)');
@@ -122,6 +122,7 @@ appData.calcSavedMoney();
 /*Возможные расходы (addExpenses) вывести строкой в консоль каждое слово с большой буквы слова разделены запятой и пробелом*/
 for (let i = 0; i <= appData.addExpenses.length - 1; i++) {
     let str = appData.addExpenses[i];
-    appData.addExpenses[i] = str[0].charAt(0).toUpperCase() + str.slice(1);
+    str = str[0].charAt(0).toUpperCase() + str.slice(1);
+    appData.addExpenses[i] = str.trim();
 }
 console.log(appData.addExpenses);
