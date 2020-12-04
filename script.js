@@ -139,7 +139,7 @@ let appData = {
         appData.budgetDay = Math.floor(appData.budgetMonth / 30);
     },
     getTargetMonth: function() {
-        let res = Math.ceil(targetAmount.value / appData.budgetMonth);
+        let res = Math.round(targetAmount.value / appData.budgetMonth);
         if (!isFinite(res) || res < 0) {
             alert('Неверный ввод!');
             return res = 0;
