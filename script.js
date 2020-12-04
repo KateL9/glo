@@ -159,3 +159,15 @@ start.addEventListener('click', appData.start);
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
 incomePlus.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('input', appData.changeRange);
+
+let main = document.querySelector('.main');
+main.addEventListener('input', function (e) {
+    console.log(e.target.value, e.target.placeholder);
+    if (e.target.placeholder === "Наименование") {
+        console.log(e.target.placeholder);
+        e.target.value = e.target.value.replace(/[^а-яё\s,.!:;'-]/i, '');
+    } else if (e.target.placeholder === "Сумма") {
+        console.log(e.target.placeholder);
+        e.target.value = e.target.value.replace(/[^\d]/g, '');
+    }
+});
