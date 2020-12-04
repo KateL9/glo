@@ -37,7 +37,6 @@ let appData = {
     budgetMonth: 0,
     expensesMonth: 0,
     start: function() {
-        appData.checkValidation();
         appData.budget = +salaryAmount.value;
         appData.getExpenses();
         appData.getIncome();
@@ -59,18 +58,6 @@ let appData = {
         periodSelect.addEventListener('input', function () {
             incomePeriodVal.value = appData.calcPeriod();
         });
-
-    },
-    checkValidation: function() {
-        let inputLettrs = document.querySelectorAll("[placeholder='название']");
-        inputLettrs[0].addEventListener('input', function() {
-            inputLettrs[0].value = inputLettrs[0].value.replace(/[^а-я]/, '');
-        });
-        let inputDigits = document.querySelectorAll("[placeholder='Сумма']");
-        inputDigits[0].addEventListener('keyup', function() {
-            this.value = this.value.replace(/[^\d]/g, '');
-        });
-
 
     },
     addExpensesBlock: function() {
