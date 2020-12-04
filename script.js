@@ -56,7 +56,7 @@ let appData = {
         additionalIncomeValue.value = appData.addIncome.join(', ');
         targetMonth.value = appData.getTargetMonth();
         incomePeriodVal.value = appData.calcPeriod();
-        start.addEventListener('click', function() {
+        periodSelect.addEventListener('input', function () {
             incomePeriodVal.value = appData.calcPeriod();
         });
 
@@ -76,6 +76,7 @@ let appData = {
     addExpensesBlock: function() {
         let cloneExpensesItem = expensesItems[0].cloneNode(true);
         cloneExpensesItem.childNodes[1].value = '';
+        cloneExpensesItem.childNodes[3].value ='';
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
         expensesItems = document.querySelectorAll('.expenses-items');
         if (expensesItems.length == 3) {
@@ -95,6 +96,7 @@ let appData = {
     addIncomeBlock: function() {
         let cloneIncomeItem = incomeItems[0].cloneNode(true);
         cloneIncomeItem.childNodes[1].value = '';
+        cloneIncomeItem.childNodes[3].value = '';
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
         incomeItems = document.querySelectorAll('.income-items');
         if (incomeItems.length == 3) {
