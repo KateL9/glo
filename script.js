@@ -140,12 +140,10 @@ let appData = {
         }
     },
     getBudget: function() {
-
         this.budgetMonth = +this.budget + Number(this.incomeMonth) - this.expensesMonth;
         this.budgetDay = Math.floor(this.budgetMonth / 30);
     },
     getTargetMonth: function() {
-
         let res = Math.round(targetAmount.value / this.budgetMonth);
         if (!isFinite(res) || res < 0) {
             alert('Неверный ввод!');
