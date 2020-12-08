@@ -163,18 +163,21 @@ let appData = {
         if (salaryAmount.value) {
             start.hidden = true;
             cancel.style.display = 'block';
-            allInputs.forEach(function(item) {
-                item = item.disabled = true;
+            [...document.querySelectorAll('section.main input[type=text]')].forEach(function(el) {
+                el.disabled = true;
             });
         }
     },
     reset: function() {
-        [...document.querySelectorAll('section.main input[type=text]')].forEach(el => el.value = '');
+        [...document.querySelectorAll('section.main input[type=text]')].forEach(function(el) {
+            el.value = ''
+            el.disabled = false;
+        });
         cancel.style.display = 'none'
         start.hidden = false;
-        allInputs.forEach(function(item) {
-            item = item.disabled = false;
-        });
+        // allInputs.forEach(function(item) {
+        //     item = item.disabled = false;
+        // });
         this.income = {};
         this.incomeMonth = 0;
         this.addIncome = [];
