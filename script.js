@@ -186,7 +186,8 @@ class AppData {
             depositPercent.style.display = 'inline-block';
             depositPercent.disabled = false;
             depositPercent.value = 0;
-            depositPercent.addEventListener('keyup', function() {
+            depositPercent.addEventListener('keyup', function(e) {
+                e.target.value = e.target.value.replace(/[^\d.]/g, '');
                 if (depositPercent.value >= 100 || depositPercent.value < 0) {
                     alert('Введите корректное значение в поле проценты');
                     start.disabled = true;
