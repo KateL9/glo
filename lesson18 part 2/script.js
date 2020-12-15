@@ -33,20 +33,26 @@ let timeDiv = document.createElement('div');
 timeDiv.innerHTML = `Текущее время: ${time}`;
 weekdayDiv.append(timeDiv);
 
-// До нового года осталось
+//До нового года осталось
+let newYear = document.createElement('div');
 
-function diffSubtract(date1, date2) {
-    return date2 - date1;
+function daysLeftNewYear() {
+    targeDay = new Date("December 31, 2020");
+    daysRemaining = Math.round((targeDay.getTime() - date.getTime()) / (24 * 60 * 60 * 1000));
+    dayname = "";
+    str = "" + daysRemaining;
+    lastDigit = parseInt(str.slice(1, str.length - 1));
+
+    if (daysRemaining > 4 && daysRemaining < 21) dayname = " дней";
+    if (lastDigit == 1) dayname = " день";
+    if (lastDigit == 2 || lastDigit == 3 || lastDigit == 4) dayname = " дня";
+    else dayname = " дней";
+
+    if (daysRemaining < 0) return ("С новым годом!!!");
+    if (daysRemaining == 0) return ("Завтра новый год!");
+    else {
+        return ("До нового года осталось " + daysRemaining + dayname + "!");
+    }
 }
-
-// Массив данных о времени
-let end_date = {
-    "full_year": "1970", // Год
-    "month": "01", // Номер месяца
-    "day": "01", // День
-    "hours": "00", // Час
-    "minutes": "00", // Минуты
-    "seconds": "00" // Секунды
-}
-
-// Строка для вывода времени
+newYear.innerHTML = daysLeftNewYear();
+timeDiv.append(newYear);
