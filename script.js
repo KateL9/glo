@@ -54,9 +54,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const toggleMenu = () => {
         const btnMenu = document.querySelector('.menu'),
-            menu = document.querySelector('menu'),
-            closeBtn = document.querySelector('.close-btn'),
-            menuItem = menu.querySelectorAll('ul>li');
+            menu = document.querySelector('menu');
         const handlerMenu = () => {
             if (!menu.style.transform || menu.style.transform === `translate(-100%)`) {
                 menu.style.transform = `translate(0)`;
