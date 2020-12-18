@@ -80,8 +80,8 @@ window.addEventListener('DOMContentLoaded', () => {
                     let timer = setInterval(function() {
                         let timePassed = Date.now() - start;
                         popup.style.display = 'block';
-                        popupContent.style.left = timePassed / 3 + 'px';
-                        if (timePassed >= 2000) {
+                        popupContent.style.left = timePassed *2 + 'px';
+                        if (timePassed >= 300) {
                             clearInterval(timer);
                         }
                     }, 20);
