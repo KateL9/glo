@@ -63,7 +63,7 @@ window.addEventListener('DOMContentLoaded', () => {
             if (
                 target.classList.contains('close-btn') ||
                 target.closest('.menu') ||
-                target.closest('li')
+                target.closest('a')
             ) menu.style.transform = `translate(-100%)`;
         })
     };
