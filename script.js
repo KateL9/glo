@@ -304,6 +304,13 @@ window.addEventListener('DOMContentLoaded', () => {
             }
 
             totalValue.textContent = total;
+
+            if (!calcType.options[calcType.selectedIndex].value) {
+                calcSquare.value = '';
+                calcCount.value = '';
+                calcDay.value = '';
+            }
+
         };
 
         calcBlock.addEventListener('change', (event) => {
