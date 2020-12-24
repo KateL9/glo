@@ -64,7 +64,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 target.classList.contains('close-btn') ||
                 target.closest('.menu') ||
                 target.closest('a')
-            ) menu.style.transform = `translate(-100%)`;
+            ) {
+                menu.style.transform = `translate(-100%)`;
+            } else if (!target.closest('menu')) {
+                menu.style.transform = `translate(-100%)`;
+            }
         })
     };
     toggleMenu();
