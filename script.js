@@ -1,7 +1,6 @@
 'use strict';
 window.addEventListener('DOMContentLoaded', () => {
 
-
     // Timer
     function countTimer(deadline) {
         let timerHours = document.querySelector('#timer-hours'),
@@ -150,7 +149,7 @@ window.addEventListener('DOMContentLoaded', () => {
         let dot;
         let currentSlide = 0,
             interval;
-        //  Написать скрипт, который будет на страницу добавлять точки с классом dot равному количеству слайдов
+
         const addDots = () => {
             for (let i = 0; i <= slide.length - 1; i++) {
                 let li = document.createElement('li');
@@ -262,7 +261,6 @@ window.addEventListener('DOMContentLoaded', () => {
     hoverEffect();
 
     // Validation of the calculator 
-    //ввод только цифр
     const numberValidation = () => {
         const calculatorBlock = document.querySelector('.calc-block');
         calculatorBlock.addEventListener('input', (event) => {
@@ -306,6 +304,7 @@ window.addEventListener('DOMContentLoaded', () => {
             totalValue.textContent = total;
 
             if (!calcType.options[calcType.selectedIndex].value) {
+                total = 0;
                 calcSquare.value = '';
                 calcCount.value = '';
                 calcDay.value = '';
@@ -316,11 +315,6 @@ window.addEventListener('DOMContentLoaded', () => {
         calcBlock.addEventListener('change', (event) => {
             const target = event.target;
 
-            /*
-            if(target === calcType || target === calcSquare || target === calcDay || target === calcCount)
-            or
-            if (target.matches('.select') || target.matches('.input'))
-            */
             if (target.matches('.calc-type') || target.matches('.calc-square') || target.matches('.calc-day') || target.matches('.calc-count')) {
                 countSum();
             }
@@ -328,13 +322,8 @@ window.addEventListener('DOMContentLoaded', () => {
     };
     calc(100);
 
-    //sendajax-form
+    //send ajax-form
 
-    //Validation
-    /*поля с номером телефона можно ввести только цифры и знак “+”
-    В поле "Ваше имя" разрешить ввод только кириллицы и пробелов. 
-    В "Ваше сообщение" разрешить только кириллицу, пробелы, цифры и знаки препинания.
-    */
     const validation = () => {
         document.body.addEventListener('input', (event) => {
             let target = event.target;
@@ -343,15 +332,38 @@ window.addEventListener('DOMContentLoaded', () => {
                 target.value = target.value.replace(/[^а-я\s]/gi, "");
 
             } else if (target.tagName === 'INPUT' && target.name == 'user_phone') {
+                target.setAttribute('maxLength', 13);
+                target.value = target.value.replace(/[^+\d$]/, "");
 
-                target.value = target.value.replace(/[^+\d$]/, "")
             } else if (target.tagName === 'INPUT' && target.name == 'user_message') {
 
-                target.value = target.value.replace(/[^?!,.а-яА-ЯёЁ0-9\s$]/, "")
+                target.value = target.value.replace(/[^а-яёА-ЯЁ\s\,\.\!\?\-]/gi, "");
+
+            } else if (target.tagName === 'INPUT' && target.name == 'user_email') {
+
+                target.value = target.value.replace(/[^a-z-0-9@.\s]/i, "")
+
             }
         })
     }
     validation();
+
+    const isValid = () => {
+        document.body.addEventListener('focusout', (event) => {
+            let target = event.target;
+            if (target.name == 'user_phone') {
+                if (target.value.length < 7) {
+                    alert("Введите от 7 до 13 цифр, включая +");
+                }
+            } else if (target.name == 'user_email') {
+                const regExp = /^\w+@\w+\.\w{2,}$/;
+                if (regExp.test(target.value) === false) {
+                    alert("Введите корректный e-mail");
+                }
+            }
+        })
+    }
+    isValid();
 
     const sendForm = () => {
         const errorMessage = 'Что-то пошло не так...',
@@ -384,43 +396,51 @@ window.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData(form);
             let body = {};
 
-            // for (let val of formData.entries()) {
-            //     body[val[0]] = val[1];
-            // }
             formData.forEach((val, key) => {
                 body[key] = val;
             });
-
-            postData(body,
-                () => {
+            const clearInputs = () => {
+                    form.reset();
+                    const animation = () => {
+                        const popup = document.querySelector('.popup'),
+                            popupContent = document.querySelector('.popup-content');
+                        let start = Date.now();
+                        setTimeout(function() {
+                            statusMessage.textContent = '';
+                        }, 1000);
+                        setTimeout(function() {
+                            let timePassed = Date.now() - start;
+                            popupContent.style.left = timePassed * 3 + 'px';
+                            popup.style.display = 'none';
+                        }, 2000);
+                    }
+                    animation();
+                }
+                //Переписать скрипт для отправки данных с формы, используя Fetch
+            postData(body)
+                .then((response) => {
+                    if (response.status !== 200) {
+                        throw new Error('status network not 200')
+                    }
                     statusMessage.textContent = successMessage;
-                    form.reset()
-                },
-                (error) => {
+                    clearInputs();
+                })
+                .catch((error) => {
                     statusMessage.textContent = errorMessage;
                     console.log(error);
                 });
-        }
+        };
 
-        const postData = (body, outputData, errorData) => {
-            const request = new XMLHttpRequest();
-            request.addEventListener('readystatechange', () => {
-
-                if (request.readyState !== 4) {
-                    return;
-                }
-                if (request.status === 200) {
-                    outputData();
-                } else {
-                    errorData(request.status);
-                }
-            });
-            request.open('POST', 'server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-
-            request.send(JSON.stringify(body));
-        }
-
-    };
+        const postData = (body) => {
+            return fetch('./server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+        };
+    }
     sendForm();
+
 });
