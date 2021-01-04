@@ -1,25 +1,27 @@
-   //Menu
-   const toggleMenu = () => {
-       const btnMenu = document.querySelector('.menu'),
-           menu = document.querySelector('menu');
-       const handlerMenu = () => {
-           if (!menu.style.transform || menu.style.transform === `translate(-100%)`) {
-               menu.style.transform = `translate(0)`;
-           } else {
-               menu.style.transform = `translate(-100%)`;
-           }
-       };
+//Menu
+const toggleMenu = () => {
+    const menu = document.querySelector("menu");
 
-       btnMenu.addEventListener('click', handlerMenu);
+    const handlerMenu = () => {
+        menu.classList.toggle("active-menu");
+    };
 
-       menu.addEventListener('click', (event) => {
-           let target = event.target;
-           if (
-               target.classList.contains('close-btn') ||
-               target.closest('.menu') ||
-               target.closest('a')
-           ) menu.style.transform = `translate(-100%)`;
-       })
-   };
+    document.addEventListener("click", event => {
+        const target = event.target;
 
-   export default toggleMenu;
+        if (target.closest("li>a")) {
+            event.preventDefault();
+            handlerMenu();
+        }
+        if (
+            target.closest(".menu") ||
+            target.closest(".close-btn") ||
+            (!target.closest(".active-menu") &&
+                menu.classList.contains("active-menu"))
+        ) {
+            handlerMenu();
+        }
+    });
+};
+
+export default toggleMenu;
