@@ -10,7 +10,6 @@ const toggleMenu = () => {
         const target = event.target;
 
         if (target.closest("li>a")) {
-            event.preventDefault();
             handlerMenu();
         }
         if (

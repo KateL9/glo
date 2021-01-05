@@ -10,7 +10,7 @@
                     let timer = setInterval(function() {
                         let timePassed = Date.now() - start;
                         popup.style.display = 'block';
-                        popupContent.style.left = timePassed * 2 + 'px';
+                        popupContent.style.left = timePassed * 2.5 + 'px';
                         if (timePassed >= 300) {
                             clearInterval(timer);
                         }
